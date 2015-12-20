@@ -8,58 +8,61 @@ Project Plan
 546687 Naufal Khalid
 
 
+
 ### 2. Goal
 
 In this project we will be building an online game store for JavaScript games. The game store will be a marketplace where players can buy games and developers can sell their games on the platform.
 
 
+
 ### 3. Plans
 
 The platform will have multiple pages. For the basic functionality we have discussed the following important views in our web-application:
-	1. Home Page (To display all the games available)
-	2. Game Page (A page where the game can be played/bought)
-	3. User/Developer Dashboard (User can see bought games, Developer can see added games)
-	4. Sign-up (To register new player/developer)
-	5. Log-in (For sign in)
+
+1. Home Page (To display all the games available)
+2. Game Page (A page where the game can be played/bought)
+3. User/Developer Dashboard (User can see bought games, Developer can see added games)
+4. Sign-up (To register new player/developer)
+5. Log-in (For sign in)
 	
 Furthermore, we plan to have the following models:
 
-	1. User 
-		It will store the user details and will have a flag which will tell apart whether the user is a player or a developer. We will check the flag and provide appropriate functionality to the user.
-		Fields:
-			* Id
-			* Name
-			* Last Name
-			* Email
-			* Password
-			* Developer Flag
+1. User 
+It will store the user details and will have a flag which will tell apart whether the user is a player or a developer. We will check the flag and provide appropriate functionality to the user.
+Fields:
+	* Id
+	* Name
+	* Last Name
+	* Email
+	* Password
+	* Developer Flag
+
+2. Game
+The Game model will store all the games added by developers to the marketplace. It will also store the price set by the developer.
+Fields:
+	* Id
+	* Developer Id (from User model)
+	* Title
+	* Source (Link to the HTML file)
+	* Price (set by developer)
+	* Category (Game category to facilitate searching)
 	
-	2. Game
-		The Game model will store all the games added by developers to the marketplace. It will also store the price set by the developer.
-		Fields:
-			* Id
-			* Developer Id (from User model)
-			* Title
-			* Source (Link to the HTML file)
-			* Price (set by developer)
-			* Category (Game category to facilitate searching)
-		
-	3. PlayerGame
-		This model is to keep track of which user has purchased what games. When a player purchases a game, it will be added to this table against the username of the player. This will also keep track of the game state and the score of the player.
-		Fields:
-			* Game Id (from Game model)
-			* Player Id (From User model)
-			* PurchasedOn Timestamp (When the game was purchased)
-			* PurchasePrice (Price at which game was purchased, used in statistics)
-			* State
-		
-	4. ScoreBoard
-		This model will keep track of the score submission from games. Whea a player is playing a game and a score is submitted, it will add a new entry in this table. 
-		Fields:
-			* Timestamp (Time at which the score is submitted)
-			* Game Id (from Game model, game which submitted the score)
-			* Player Id (from User model, player playing the game)
-			* Score 
+3. PlayerGame
+This model is to keep track of which user has purchased what games. When a player purchases a game, it will be added to this table against the username of the player. This will also keep track of the game state and the score of the player.
+Fields:
+	* Game Id (from Game model)
+	* Player Id (From User model)
+	* PurchasedOn Timestamp (When the game was purchased)
+	* PurchasePrice (Price at which game was purchased, used in statistics)
+	* State
+	
+4. ScoreBoard
+This model will keep track of the score submission from games. Whea a player is playing a game and a score is submitted, it will add a new entry in this table. 
+Fields:
+	* Timestamp (Time at which the score is submitted)
+	* Game Id (from Game model, game which submitted the score)
+	* Player Id (from User model, player playing the game)
+	* Score 
 	
 Following sections describe the plans for implementing each feature:
 
@@ -89,6 +92,7 @@ The extra features we plan to implement are:
 If time permits, we will try to implement other features. 
 
 
+
 ### 4. Process and Time schedule
 So far, we have decided to collaborate over email. Moreover, we will be meeting in the campus every alternate day to discuss about the current status of the project and take appropriate actions. We will distribute work equally amongst the team members.
 
@@ -100,6 +104,7 @@ Due Date	Feature Completion
 30-01-2016	Payment Functionality + Save Load features
 10-02-2016	Home View and Searching games
 15-02-2016	Final touch up and bug fixes
+
 
 
 ### 5. Testing
