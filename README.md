@@ -23,6 +23,7 @@ The platform will have multiple pages. For the basic functionality we have discu
 	5. Log-in (For sign in)
 	
 Furthermore, we plan to have the following models:
+
 	1. User 
 		It will store the user details and will have a flag which will tell apart whether the user is a player or a developer. We will check the flag and provide appropriate functionality to the user.
 		Fields:
