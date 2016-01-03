@@ -6,14 +6,14 @@
     {% block header %}
 		<link rel="stylesheet" type="text/css" href="{% static 'style/bootstrap.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
-		
+
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="{% static 'script/bootstrap.js' %}"></script>
     {% endblock %}
   </head>
-  
+
   <body>
-  
+
 	<div id="container" class="container">
 
 		<div id="header">
@@ -21,39 +21,39 @@
 				<h2> Game Store </h2>
 				<p> The ultimate online gaming store </p>
 			</div>
-		</div> 
-		
+		</div>
+
 		<div id="navigation">
 			<ul class="nav nav-pills">
-				<li role="presentation" class="active"><a href="#">Home</a></li>
+				<li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
 				<li role="presentation"><a href="#">Dashboard</a></li>
 				<li role="presentation" class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 						Login<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-					  <li><a href="#">Sign-in</a></li>
-					  <li><a href="#">Sign-up</a></li>
+					  <li><a href="{% url 'signin' %}">Sign-in</a></li>
+					  <li><a href="{% url 'signup' %}">Sign-up</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
-		
+
 		<div id="content">
-		
+
 		{% block content %}
-	
+
 		{% endblock %}
-		
+
 		</div>
-		
+
 		<div id="footer">
 			<div class="container navbar navbar-fixed-bottom well well-sm">
 				<p class="text-center">Project for Web Software Development | by Gaurav Bhorkar, Manish Thapa, Naufal Khalid</p>
 			</div>
 		</div>
-	  
+
 	</div>
-	
+
   </body>
 </html>

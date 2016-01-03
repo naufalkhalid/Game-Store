@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}
+    Home - {{ block.super }}
+{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'script/game.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <h3 class="game-title">Game Title</h3>
+    </div>
+
+    <div class="well well-lg">
+        <p>High Scores:</p>
+    </div>
+
+    <div id="iframe">
+    	  <iframe id="game-iframe" class="center-block" src="http://webcourse.cs.hut.fi/example_game.html"></iframe>
+    </div>
+
+{% endblock %}
