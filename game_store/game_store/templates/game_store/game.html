@@ -12,16 +12,20 @@
 
 {% block content %}
 
-    <div>
-        <h3 class="game-title">Game Title</h3>
+    <div class="row">
+        <div class="col-sm-6">
+            <h3 class="game-title">Game Title</h3>
+            <h4>Developer: {{ game.user.username }}</h4>
+        </div>
+        <div class="col-sm-6">
+            <p>High Scores:</p>
+        </div>
     </div>
 
-    <div class="well well-lg">
-        <p>High Scores:</p>
-    </div>
-
-    <div id="iframe">
-    	  <iframe id="game-iframe" class="center-block" src="http://webcourse.cs.hut.fi/example_game.html"></iframe>
+    <div class="row iframe">
+        <div id="col-sm-12">
+        	  <iframe id="game-iframe" class="center-block" src="{{ game.href }}"></iframe>
+        </div>
     </div>
 
 {% endblock %}

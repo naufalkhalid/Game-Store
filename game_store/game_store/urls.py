@@ -21,7 +21,7 @@ from . import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name='index'),
-    url(r'^signin$', views.sign_in, name='signin'),  
+    url(r'^signin$', views.sign_in, name='signin'),
     url(r'^signup$', views.sign_up, name='signup'),
-    url(r'^game$', views.game, name='game'),
+    url(r'^game/(\d+)$', views.game, name='game'),
 ]
