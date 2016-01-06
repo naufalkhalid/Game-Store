@@ -7,6 +7,7 @@
 
 {% block header %}
     {{ block.super }}
+    <script type="text/javascript" src="{% static 'script/js.cookie.js' %}"></script>
     <script type="text/javascript" src="{% static 'script/game.js' %}"></script>
 {% endblock %}
 
@@ -22,9 +23,18 @@
         </div>
     </div>
 
+    <div id="game-info-alert" class="alert alert-success collapse">
+    </div>
+
+    <div id="game-errors-alert" class="alert alert-warning collapse">
+        <a href="#" class="close">&times;</a>
+        <ul id="game-errors">
+        </ul>
+    </div>
+
     <div class="row iframe">
         <div id="col-sm-12">
-        	  <iframe id="game-iframe" class="center-block" src="{{ game.href }}"></iframe>
+        	  <iframe id="game-iframe" class="center-block" src="{{ game.href }}" data-game-id="{{ game.id }}"></iframe>
         </div>
     </div>
 
