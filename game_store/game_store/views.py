@@ -1,23 +1,25 @@
 from django.shortcuts import render, get_object_or_404
 from game_store.models import Game, PlayerGame, ScoreBoard
-from game_store.forms import UserForm, UserProfileForm
-from django.http import HttpResponse
+from game_store.forms import UserForm, UserProfileForm, LoginForm
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 
 def home(request):
     return render(request, "game_store/index.html")
 
 
 def sign_in(request):
-    if (request.method == 'POST'):
-        pass
-    else:
-        pass
+    if (request.user.is_authenticated()):
+        return HttpResponseRedirect('/')
 
-    return render(
-        request,
-        "game_store/signin.html",
-        )
+    login_form = LoginForm(request.POST or None)
+    if (request.method == 'POST'):
+        if (login_form.is_valid()): #this will also authenticate the user
+            login_form.login(request)
+            return HttpResponseRedirect('/')
+
+    return render(request, "game_store/signin.html", {'form': login_form})
 
 
 def sign_up(request):
