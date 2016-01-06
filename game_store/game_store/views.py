@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from game_store.models import Game, PlayerGame, ScoreBoard
+from game_store.forms import UserForm, UserProfileForm
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 
@@ -8,11 +9,22 @@ def home(request):
 
 
 def sign_in(request):
-    return render(request, "game_store/signin.html")
+    if (request.method == 'POST'):
+        pass
+    else:
+        pass
+
+    return render(
+        request,
+        "game_store/signin.html",
+        )
 
 
 def sign_up(request):
-    return render(request, "game_store/signup.html")
+    if (request.method == 'GET'):
+        return render(request, "game_store/signup.html")
+    elif (request.method == 'POST'):
+        pass
 
 
 def game(request, game_id):
