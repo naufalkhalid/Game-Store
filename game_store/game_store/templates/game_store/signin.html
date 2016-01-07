@@ -5,7 +5,23 @@
 {% block content %}
 
 <p>
-	Signin
+
+<div class="col-md-3">
+	<form action="/signup" method="post">{% csrf_token %}
+	
+	<div class="form-group">
+    <label for="txtUserName">UserName</label>
+    <input type="name" class="form-control" id="txtUserName" name="txtUserName">
+  </div>
+  <div class="form-group">
+    <label for="txtPassword">Password</label>
+    <input type="name" class="form-control" id="txtPassword" name="txtPassword">
+  </div>
+  <div>
+  <button type="submit" class="btn btn-default">Login</button>
+  </div>
+  </form>
+  </div>
 <p>
 
 {% endblock %}
