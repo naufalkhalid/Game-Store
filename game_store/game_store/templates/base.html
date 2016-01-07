@@ -1,0 +1,59 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{% block title %}Game Store{% endblock %}</title>
+    {% block header %}
+		<link rel="stylesheet" type="text/css" href="{% static 'style/bootstrap.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'style/style.css' %}">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="{% static 'script/bootstrap.js' %}"></script>
+    {% endblock %}
+  </head>
+
+  <body data-host="{% url 'index' %}">
+
+	<div id="container" class="container">
+
+		<div id="header">
+			<div class="jumbotron">
+				<h2> Game Store </h2>
+				<p> The ultimate online gaming store </p>
+			</div>
+		</div>
+
+		<div class="row navigation">
+            <div class="col-md-8">
+                <ul class="nav nav-pills">
+    				<li role="presentation" class="active"><a href="{% url 'index' %}">Home</a></li>
+    				<li role="presentation"><a href="#">Dashboard</a></li>
+    			</ul>
+            </div>
+            <div class="col-md-4 nav-login">
+                {% if user.is_authenticated %}
+                    <p>Hello, {{user.first_name}}. <a class="btn btn-primary" href="{% url 'signout' %}">Log out</a></p>
+                {% else %}
+                    <a class="btn btn-primary" href="{% url 'signin' %}">Sign-in</a> <a class="btn btn-primary" href="{% url 'signup' %}">Sign-up</a>
+                {% endif %}
+            </div>
+		</div>
+
+		<div class="content">
+
+		{% block content %}
+
+		{% endblock %}
+
+		</div>
+
+		<div class="footer">
+			<div class="container navbar well well-sm">
+				<p class="text-center">Project for Web Software Development | by Gaurav Bhorkar, Manish Thapa, Naufal Khalid</p>
+			</div>
+		</div>
+
+	</div>
+
+  </body>
+</html>
