@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.forms import UserCreationForm
 from game_store.models import Game, PlayerGame, ScoreBoard
 from game_store.forms import UserForm, UserProfileForm, LoginForm
 from django.http import HttpResponse, HttpResponseRedirect
@@ -7,6 +8,27 @@ from django.contrib.auth import authenticate, login
 
 def home(request):
     return render(request, "game_store/index.html")
+
+
+def sign_up(request):
+	#context = RequestContext(request)
+	registered = False
+	# if this is a POST request we need to process the form data
+	if request.method== 'POST':
+		user_form =UserForm(request.POST)
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save();
+			registered=True
+			return render(request, "game_store/signup.html")
+		else:
+			print (user_form.errors)
+	# if a GET (or any other method) we'll create a blank form
+	else:
+		user_form = UserForm()
+
+	return render(request, 'game_store/signup.html', {'user_form': user_form})
 
 
 def sign_in(request):
@@ -20,13 +42,6 @@ def sign_in(request):
             return HttpResponseRedirect('/')
 
     return render(request, "game_store/signin.html", {'form': login_form})
-
-
-def sign_up(request):
-    if (request.method == 'GET'):
-        return render(request, "game_store/signup.html")
-    elif (request.method == 'POST'):
-        pass
 
 
 def game(request, game_id):

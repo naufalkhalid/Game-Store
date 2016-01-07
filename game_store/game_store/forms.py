@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 from game_store.models import UserProfile
 from django.contrib.auth import authenticate, login
 
-
 class UserForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+	password = forms.CharField(widget=forms.PasswordInput())
+	first_name = forms.CharField(max_length=100)
+	last_name = forms.CharField(max_length=100)
 
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password',)
-
+	class Meta:
+		model = User
+		fields = ('username', 'email', 'password','first_name','last_name')
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
