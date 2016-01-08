@@ -16,6 +16,10 @@ def dashboard(request):
     userprofile = get_object_or_404(UserProfile, user=request.user)
     return render(request, "game_store/dashboard.html", {'userprofile': userprofile})
 
+def add_game(request):
+    #insert code to add new game by a developer.
+    #check if user is a developer or not, then only allow
+    
 
 def sign_up(request):
 	#context = RequestContext(request)
@@ -29,11 +33,11 @@ def sign_up(request):
 			userprofile=user_profile_form.save(commit=False);
 			userprofile.user=user
 			user.set_password(user.password)
-			
+
 			user.save();
 			userprofile.save();
 			registered=True
-			
+
 		else:
 			print (user_form.errors)
 	# if a GET (or any other method) we'll create a blank form

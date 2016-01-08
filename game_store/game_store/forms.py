@@ -3,11 +3,14 @@ from django.contrib.auth.models import User
 from game_store.models import UserProfile
 from django.contrib.auth import authenticate, login
 
+class GameForm(forms.ModelForm)
+    class Meta:
+        model = Game
+        #insert fields to display here
+
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
 	confirmPassword=forms.CharField(widget=forms.PasswordInput())
-	
-	
 	first_name = forms.CharField(max_length=100)
 	last_name = forms.CharField(max_length=100)
 	username = forms.CharField(max_length=100)
@@ -19,7 +22,7 @@ class UserForm(forms.ModelForm):
 			msg="Password Donot Match"
 			self.add_error("password",msg)
 			self.add_error("confirmPassword",msg)
-	
+
 
 	class Meta:
 		model = User
