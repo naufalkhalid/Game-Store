@@ -5,17 +5,31 @@ from django.contrib.auth import authenticate, login
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
+	confirmPassword=forms.CharField(widget=forms.PasswordInput())
+	
+	
 	first_name = forms.CharField(max_length=100)
 	last_name = forms.CharField(max_length=100)
+	username = forms.CharField(max_length=100)
+	email = forms.EmailField()
+	def clean(self):
+		password=self.cleaned_data.get('password')
+		confirmPassword=self.cleaned_data.get('confirmPassword')
+		if(password!=confirmPassword):
+			msg="Password Donot Match"
+			self.add_error("password",msg)
+			self.add_error("confirmPassword",msg)
+	
 
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password','first_name','last_name')
 
 class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('is_developer',)
+	is_developer = forms.BooleanField()
+	class Meta:
+		model = UserProfile
+		fields = ('is_developer',)
 
 
 class LoginForm(forms.Form):
