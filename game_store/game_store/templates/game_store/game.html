@@ -32,10 +32,14 @@
         </ul>
     </div>
 
+{% if game_is_purchased %}
     <div class="row iframe">
         <div id="col-sm-12">
         	  <iframe id="game-iframe" class="center-block" src="{{ game.href }}" data-game-id="{{ game.id }}"></iframe>
         </div>
     </div>
+{% else %}
+    Please purchase the game
+{% endif %}
 
 {% endblock %}

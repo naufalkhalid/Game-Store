@@ -1,0 +1,34 @@
+Clone a repository
+git clone <git_url>
+
+Add files to staging area
+git add <filename/foldername>
+or
+git add *
+
+To get the status of local repo
+git status
+
+Commit the staging area
+git commit -m "Some message"
+
+Pull from a remote repository
+git pull
+
+Upload your commit to remote repository
+git push [origin master]
+
+
+
+
+
+To ignore unwanted binary files from being tracked by git, place a .gitignore file in the root folder with atleast the following contents:
+*.pot
+*.pyc
+*.py[co]
+__pycache__
+
+In case the .gitignore file is added after a few commits, use the following command to remove tracked files
+git rm --cached -r *
+
+Thereafter, add files again, commit and push.

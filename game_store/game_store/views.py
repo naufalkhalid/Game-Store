@@ -1,16 +1,20 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
-from game_store.models import Game, PlayerGame, ScoreBoard
+from game_store.models import UserProfile, Game, PlayerGame, ScoreBoard
 from game_store.forms import UserForm, UserProfileForm, LoginForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.db import models
 
 
 def home(request):
     return render(request, "game_store/index.html")
+
+@login_required
+def dashboard(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    return render(request, "game_store/dashboard.html", {'userprofile': userprofile})
 
 
 def sign_up(request):
@@ -62,6 +66,11 @@ def game(request, game_id):
     context = {
         "game": game
     }
+    if (request.user.is_authenticated()):
+        if (PlayerGame.objects.filter(game=game, user=request.user).count() == 1):  #check if game exists in player purchases
+            context['game_is_purchased'] = True
+        else:
+            context['game_is_purchased'] = False
     return render(request, "game_store/game.html", context)
 
 

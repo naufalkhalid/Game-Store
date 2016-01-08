@@ -31,4 +31,6 @@ urlpatterns = [
 
     url(r'^ajax/score$', views.score, name='score'),
     url(r'^ajax/state$', views.state, name='state'),
+
+    url(r'^dashboard$', views.dashboard, name='dashboard'),
 ]

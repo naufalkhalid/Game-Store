@@ -74,6 +74,11 @@ $(document).ready(function () {
             })
             .fail(function (data) {
                 show_message('error', data.responseText);
+                var msg =  {
+                    messageType: "ERROR",
+                    info: data.responseText
+                };
+                document.getElementById('game-iframe').contentWindow.postMessage(msg, "*");
             });
     }
 
