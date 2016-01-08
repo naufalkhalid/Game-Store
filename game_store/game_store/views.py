@@ -23,19 +23,25 @@ def sign_up(request):
 	# if this is a POST request we need to process the form data
 	if request.method== 'POST':
 		user_form =UserForm(request.POST)
-		if user_form.is_valid():
+		user_profile_form=UserProfileForm(request.POST)
+		if user_form.is_valid() and user_profile_form.is_valid() :
 			user = user_form.save()
+			userprofile=user_profile_form.save(commit=False);
+			userprofile.user=user
 			user.set_password(user.password)
+			
 			user.save();
+			userprofile.save();
 			registered=True
-			return render(request, "game_store/signup.html")
+			
 		else:
 			print (user_form.errors)
 	# if a GET (or any other method) we'll create a blank form
 	else:
 		user_form = UserForm()
+		user_profile_form=UserProfileForm()
 
-	return render(request, 'game_store/signup.html', {'user_form': user_form})
+	return render(request, 'game_store/signup.html', {'user_form': user_form, 'user_profile_form':user_profile_form, 'registered':registered})
 
 
 def sign_in(request):
