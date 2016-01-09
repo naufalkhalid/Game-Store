@@ -1,12 +1,12 @@
 from django import forms
 from django.contrib.auth.models import User
-from game_store.models import UserProfile
+from game_store.models import UserProfile, Game
 from django.contrib.auth import authenticate, login
 
-class GameForm(forms.ModelForm)
+class GameForm(forms.ModelForm):
     class Meta:
         model = Game
-        #insert fields to display here
+        fields = ('title', 'href', 'price','category',)
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -22,8 +22,6 @@ class UserForm(forms.ModelForm):
 			msg="Password Donot Match"
 			self.add_error("password",msg)
 			self.add_error("confirmPassword",msg)
-
-
 	class Meta:
 		model = User
 		fields = ('username', 'email', 'password','first_name','last_name')
@@ -51,4 +49,4 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
-        login(request, request.user)
+        login(request, user)

@@ -13,13 +13,23 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    userprofile = get_object_or_404(UserProfile, user=request.user)
-    return render(request, "game_store/dashboard.html", {'userprofile': userprofile})
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    #games purchased by the user
+    player_games = PlayerGame.objects.filter(user=request.user)
+    #games developed by the user. Since query sets are lazy, the condition will be checked in the template
+    developer_games = Game.objects.filter(user=request.user)
+    context = {
+        'user_profile': user_profile,
+        'player_games': player_games,
+        'developer_games': developer_games
+    }
+    return render(request, "game_store/dashboard.html", context)
 
 def add_game(request):
     #insert code to add new game by a developer.
     #check if user is a developer or not, then only allow
-    
+    pass
+
 
 def sign_up(request):
 	#context = RequestContext(request)
