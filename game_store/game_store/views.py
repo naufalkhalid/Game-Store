@@ -25,10 +25,25 @@ def dashboard(request):
     }
     return render(request, "game_store/dashboard.html", context)
 
-def add_game(request):
+def add_game(request):	
+	developer=False
+	user_profile = get_object_or_404(UserProfile, user=request.user)
+	if request.method== 'POST':
+		developer_form=GameForm(request.POST)
+		if developer_form.is_valid():
+			if user_profile.is_developer==true:
+				dev = developer_form.save(commit=False)
+				dev.user=user_profile.user
+				dev.save()
+				developer=True
+		else:
+			print (developer_form.errors)
+				
     #insert code to add new game by a developer.
+	else:
+		developer_form = GameForm()
     #check if user is a developer or not, then only allow
-    pass
+	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer})
 
 
 def sign_up(request):
@@ -55,7 +70,7 @@ def sign_up(request):
 		user_form = UserForm()
 		user_profile_form=UserProfileForm()
 
-	return render(request, 'game_store/signup.html', {'user_form': user_form, 'user_profile_form':user_profile_form, 'registered':registered})
+	return render(request, 'game_store/add_game.html', {'user_form': user_form, 'user_profile_form':user_profile_form, 'registered':registered})
 
 
 def sign_in(request):
