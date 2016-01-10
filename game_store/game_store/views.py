@@ -25,7 +25,7 @@ def dashboard(request):
     }
     return render(request, "game_store/dashboard.html", context)
 
-def add_game(request):	
+def add_game(request): 	
 	developer=False
 	user_profile = get_object_or_404(UserProfile, user=request.user)
 	if request.method== 'POST':
