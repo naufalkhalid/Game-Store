@@ -26,30 +26,9 @@ def dashboard(request):
     return render(request, "game_store/dashboard.html", context)
 
 def add_game(request):
-	
-	user_profile = get_object_or_404(UserProfile, user=request.user)
-	developer = False
     #insert code to add new game by a developer.
-	if request.method== 'POST':
-		game_form=GameForm(request.POST)
-		if game_form.is_valid:
-			#check if user is a developer or not, then only allow
-			if(user_profile.is_developer==true):
-			
-				game_add=game_form.save(commit=False);
-				game_add.user=user_profile.user
-				game_add.save();
-				developer=True
-			
-			
-			
-	
-		
-			
-	
-	
-    
-    
+    #check if user is a developer or not, then only allow
+    pass
 
 
 def sign_up(request):
