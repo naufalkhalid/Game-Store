@@ -4,10 +4,20 @@
 
 {% block content %}
 
+<!--
+INSTRUCTIONS
+Following objects are passed to this view (refer dashboard in views.py):
+user_profile
+player_games - array of games purchased by the user
+devleoper_games - array of games developed by the user
+Refer to models.py for models and field information
+ -->
 
+{% if user_profile.is_developer %}
 <div class="row">
     <!-- Developer dashboard related content here -->
 </div>
+{% endif % }
 
 <div class="row">
     <!-- Player dashboard related content here -->

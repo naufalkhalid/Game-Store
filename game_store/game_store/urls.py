@@ -33,4 +33,5 @@ urlpatterns = [
     url(r'^ajax/state$', views.state, name='state'),
 
     url(r'^dashboard$', views.dashboard, name='dashboard'),
+    url(r'^add_game$', views.add_game, name='add_game'),
 ]

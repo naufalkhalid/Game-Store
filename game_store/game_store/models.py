@@ -18,7 +18,7 @@ class Game(models.Model):
 
 
 class PlayerGame(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE) 
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     purchased_on = models.DateTimeField(auto_now_add=True)
     purchased_price = models.DecimalField(max_digits=10, decimal_places=2)

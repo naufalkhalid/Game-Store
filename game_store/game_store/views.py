@@ -13,8 +13,22 @@ def home(request):
 
 @login_required
 def dashboard(request):
-    userprofile = get_object_or_404(UserProfile, user=request.user)
-    return render(request, "game_store/dashboard.html", {'userprofile': userprofile})
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    #games purchased by the user
+    player_games = PlayerGame.objects.filter(user=request.user)
+    #games developed by the user. Since query sets are lazy, the condition will be checked in the template
+    developer_games = Game.objects.filter(user=request.user)
+    context = {
+        'user_profile': user_profile,
+        'player_games': player_games,
+        'developer_games': developer_games
+    }
+    return render(request, "game_store/dashboard.html", context)
+
+def add_game(request):
+    #insert code to add new game by a developer.
+    #check if user is a developer or not, then only allow
+    pass
 
 
 def sign_up(request):
@@ -29,11 +43,11 @@ def sign_up(request):
 			userprofile=user_profile_form.save(commit=False);
 			userprofile.user=user
 			user.set_password(user.password)
-			
+
 			user.save();
 			userprofile.save();
 			registered=True
-			
+
 		else:
 			print (user_form.errors)
 	# if a GET (or any other method) we'll create a blank form
@@ -57,7 +71,6 @@ def sign_in(request):
     if (request.method == 'POST'):
         if (login_form.is_valid()): #this will also authenticate the user
             login_form.login(request)
-            print("GET -> " + request.GET.get('next'))
             return HttpResponseRedirect(next_page)
     return render(request, "game_store/signin.html", {'form': login_form, 'next_page': next_page})
 
