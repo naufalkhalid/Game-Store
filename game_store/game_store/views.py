@@ -31,11 +31,11 @@ def add_game(request):
 	if request.method== 'POST':
 		developer_form=GameForm(request.POST)
 		if developer_form.is_valid():
-			if user_profile.is_developer==true:
+			if user_profile.is_developer:
 				dev = developer_form.save(commit=False)
 				dev.user=user_profile.user
 				dev.save()
-				developer=True
+				
 		else:
 			print (developer_form.errors)
 				
