@@ -4,9 +4,13 @@ from game_store.models import UserProfile, Game
 from django.contrib.auth import authenticate, login
 
 class GameForm(forms.ModelForm):
-    class Meta:
-        model = Game
-        fields = ('title', 'href', 'price','category',)
+	title = forms.CharField(max_length=250)
+	href = forms.CharField(max_length=1000)
+	category = forms.CharField(max_length=250)
+	price=forms.DecimalField(max_digits=10, decimal_places=2)
+	class Meta:
+		model = Game
+		fields = ('title', 'href', 'price','category',)
 
 class UserForm(forms.ModelForm):
 	password = forms.CharField(widget=forms.PasswordInput())
@@ -50,3 +54,15 @@ class LoginForm(forms.Form):
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         login(request, user)
+
+
+class PurchaseForm(forms.Form):
+    pid = forms.CharField(widget=forms.HiddenInput())
+    sid = forms.CharField(widget=forms.HiddenInput())
+    success_url = forms.CharField(widget=forms.HiddenInput())
+    cancel_url = forms.CharField(widget=forms.HiddenInput())
+    error_url = forms.CharField(widget=forms.HiddenInput())
+    checksum = forms.CharField(widget=forms.HiddenInput())
+    def __init__(self, *args,**kwargs):
+        super(BlogForm, self).__init__(*args, **kwargs)
+        #self.fields['pid'].initial = 

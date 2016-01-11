@@ -34,3 +34,11 @@ class ScoreBoard(models.Model):
     score = models.IntegerField(default=0)
     def __str__(self):
         return "Game: " + self.game.title + ", User: " + self.user.username + ", Score: " + str(self.score) + " Time: " + self.timestamp.strftime('%Y-%m-%d %H:%M')
+
+
+class Payment(models.Model):
+    pid = models.CharField(max_length=250)
+    sid = models.CharField(max_length=250, default="gamestore123")
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    checksum = models.CharField(max_length=250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -27,6 +27,11 @@ urlpatterns = [
     url(r'^signup$', views.sign_up, name='signup'),
     url(r'^signout$', views.sign_out, name='signout'),
 
+    url(r'^payment/(initialize)$', views.payment, name='payment'),
+    url(r'^payment/(success)$', views.payment, name='payment'),
+    url(r'^payment/(cancel)$', views.payment, name='payment'),
+    url(r'^payment/(error)$', views.payment, name='payment'),
+
     url(r'^game/(\d+)$', views.game, name='game'),
 
     url(r'^ajax/score$', views.score, name='score'),

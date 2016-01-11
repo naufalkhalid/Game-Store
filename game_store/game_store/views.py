@@ -11,6 +11,24 @@ from django.contrib.auth.decorators import login_required
 def home(request):
     return render(request, "game_store/index.html")
 
+
+@login_required
+def payment(request, action):
+    if ((request.method == 'POST') and (action == 'initialize')):
+        #Create Payment form
+        pass
+    elif request.method == 'GET':
+        #Handle payment response
+        if action == 'success':
+            pass
+        elif action == 'error':
+            pass
+        elif action == 'cancel':
+            pass
+    else:
+        HttpResponse('Method not allowed')
+
+
 @login_required
 def dashboard(request):
     user_profile = get_object_or_404(UserProfile, user=request.user)
@@ -33,11 +51,11 @@ def add_game(request):
 	if request.method== 'POST':
 		developer_form=GameForm(request.POST)
 		if developer_form.is_valid():
-			if user_profile.is_developer==true:
+			if user_profile.is_developer:
 				dev = developer_form.save(commit=False)
 				dev.user=user_profile.user
 				dev.save()
-				developer=True
+
 		else:
 			print (developer_form.errors)
 
