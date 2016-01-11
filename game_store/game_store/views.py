@@ -24,9 +24,11 @@ def dashboard(request):
         'developer_games': developer_games
     }
     return render(request, "game_store/dashboard.html", context)
+
+
 @login_required
-def add_game(request): 	
-	
+def add_game(request):
+
 	user_profile = get_object_or_404(UserProfile, user=request.user)
 	if request.method== 'POST':
 		developer_form=GameForm(request.POST)
@@ -38,7 +40,7 @@ def add_game(request):
 				developer=True
 		else:
 			print (developer_form.errors)
-				
+
     #insert code to add new game by a developer.
 	else:
 		developer_form = GameForm()
