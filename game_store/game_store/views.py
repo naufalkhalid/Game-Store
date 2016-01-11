@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from game_store.models import UserProfile, Game, PlayerGame, ScoreBoard
-from game_store.forms import UserForm, UserProfileForm, LoginForm
+from game_store.forms import UserForm, UserProfileForm, LoginForm,GameForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -24,9 +24,9 @@ def dashboard(request):
         'developer_games': developer_games
     }
     return render(request, "game_store/dashboard.html", context)
-
+@login_required
 def add_game(request): 	
-	developer=False
+	
 	user_profile = get_object_or_404(UserProfile, user=request.user)
 	if request.method== 'POST':
 		developer_form=GameForm(request.POST)
@@ -43,7 +43,7 @@ def add_game(request):
 	else:
 		developer_form = GameForm()
     #check if user is a developer or not, then only allow
-	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer})
+	return render(request, 'game_store/add_game.html', {'developer_form': developer_form})
 
 
 def sign_up(request):
@@ -70,7 +70,7 @@ def sign_up(request):
 		user_form = UserForm()
 		user_profile_form=UserProfileForm()
 
-	return render(request, 'game_store/add_game.html', {'user_form': user_form, 'user_profile_form':user_profile_form, 'registered':registered})
+	return render(request, 'game_store/signup.html', {'user_form': user_form, 'user_profile_form':user_profile_form, 'registered':registered})
 
 
 def sign_in(request):
