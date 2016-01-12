@@ -42,3 +42,8 @@ class Payment(models.Model):
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     checksum = models.CharField(max_length=250)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+    ref = models.CharField(max_length=250)
+    def __str__(self):
+        return "Id: " + self.pid + ", Amount: " + str(self.amount) + ", Completed: " + str(self.completed)

@@ -34,12 +34,25 @@
 
 {% if game_is_purchased %}
     <div class="row iframe">
-        <div id="col-sm-12">
+        <div class="col-sm-12">
         	  <iframe id="game-iframe" class="center-block" src="{{ game.href }}" data-game-id="{{ game.id }}"></iframe>
         </div>
     </div>
 {% else %}
-    Please purchase the game
+    <div class="row">
+        <div class="col-sm-12">
+            {% if user.is_authenticated %}
+                <form class="form" method="post" action="/payment/initialize">
+                    {% csrf_token %}
+                    <input type="hidden" name="game" value="{{ game.id }}" />
+                    <button class="btn btn-lg btn-success" type="submit">Purchase</button>
+                </form>
+            {% else %}
+                <a class="btn" href="{% url 'signin' %}?next=/game/{{ game.id }}">Sign-in</a> to purchase
+            {% endif %}
+        </div>
+
+    </div>
 {% endif %}
 
 {% endblock %}

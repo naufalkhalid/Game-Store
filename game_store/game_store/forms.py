@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from game_store.models import UserProfile, Game
+from game_store.models import UserProfile, Game, Payment
 from django.contrib.auth import authenticate, login
+from django.conf import settings
 
 class GameForm(forms.ModelForm):
 	title = forms.CharField(max_length=250)
@@ -56,13 +57,14 @@ class LoginForm(forms.Form):
         login(request, user)
 
 
-class PurchaseForm(forms.Form):
+class PaymentForm(forms.ModelForm):
     pid = forms.CharField(widget=forms.HiddenInput())
     sid = forms.CharField(widget=forms.HiddenInput())
-    success_url = forms.CharField(widget=forms.HiddenInput())
-    cancel_url = forms.CharField(widget=forms.HiddenInput())
-    error_url = forms.CharField(widget=forms.HiddenInput())
     checksum = forms.CharField(widget=forms.HiddenInput())
-    def __init__(self, *args,**kwargs):
-        super(BlogForm, self).__init__(*args, **kwargs)
-        #self.fields['pid'].initial = 
+    amount = forms.CharField(widget=forms.HiddenInput())
+    success_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_SUCCESS_URL)
+    cancel_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_CANCEL_URL)
+    error_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_ERROR_URL)
+    class Meta:
+        model = Payment
+        fields = ('pid', 'sid', 'checksum','amount')
