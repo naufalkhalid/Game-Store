@@ -1,18 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm
-from game_store.models import UserProfile, Game, PlayerGame, ScoreBoard, Payment
-from game_store.forms import UserForm, UserProfileForm, LoginForm, GameForm, PaymentForm
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
+from game_store.models import UserProfile, Game, PlayerGame
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from hashlib import md5
-
 
 def home(request):
     return render(request, "game_store/index.html")
-
 
 @login_required
 def dashboard(request):

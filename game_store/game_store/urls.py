@@ -28,10 +28,10 @@ urlpatterns = [
     url(r'^signup$', views.sign_up, name='signup'),
     url(r'^signout$', views.sign_out, name='signout'),
 
-    url(r'^payment/(initialize)$', views.payment, name='payment'),
-    url(r'^payment/(success)$', views.payment, name='payment'),
-    url(r'^payment/(cancel)$', views.payment, name='payment'),
-    url(r'^payment/(error)$', views.payment, name='payment'),
+    url(r'^payment/initialize$', views.payment_initialize, name='payment'),
+    url(r'^payment/(success)$', views.payment_response, name='payment'),
+    url(r'^payment/(cancel)$', views.payment_response, name='payment'),
+    url(r'^payment/(error)$', views.payment_response, name='payment'),
 
     url(r'^game/(\d+)$', views.game, name='game'),
 
