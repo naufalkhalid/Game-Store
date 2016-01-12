@@ -34,7 +34,7 @@ def add_game(request):
 	else:
 		developer_form = GameForm()
     #check if user is a developer or not, then only allow
-	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer})
+	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer,'gameadded':gameadded})
 
 
 def game(request, game_id):

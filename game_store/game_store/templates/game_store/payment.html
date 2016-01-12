@@ -6,15 +6,63 @@
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-      <h4> Are you sure you want proceed with the following purchase? </h4>
-      <div class="well">
-          <h4>{{ game.title }}</h4>
-          <h5>Price - {{ game.price }} EUR</h5>
-          <form class="form" action="http://payments.webcourse.niksula.hut.fi/pay/" method="post">
-              {{ payment_form }}
-              <button class="btn btn-lg btn-success" type="submit">Proceed...</button>
-          </form>
-      </div>
+
+      {% if error %}
+
+         <div class="alert alert-danger">
+             <strong>Error</strong> - {{ error_text }}
+         </div>
+
+      {% else %}
+
+         {% if payment_form %}
+            <h4>Order details</h4>
+            <div class="well">
+              <h4>{{ game.title }}</h4>
+              <h5>Price - {{ game.price }} EUR</h5>
+            </div>
+            <form class="form" action="http://payments.webcourse.niksula.hut.fi/pay/" method="post">
+                {{ payment_form }}
+                <button class="btn btn-lg btn-success" type="submit">Proceed...</button>
+            </form>
+         {% endif %}
+
+         {% if response_success %}
+
+             <div class="alert alert-success">
+                 <h4>Payment has been received. Game purchased!</h4>
+             </div>
+              <div class="well">
+                  <h4>{{ payment.game.title }}</h4>
+                  <h5>Price - {{ payment.game.price }} EUR</h5>
+              </div>
+              <a class="btn btn-lg btn-success" href="/game/{{payment.game.id}}">Play Game</a>
+
+         {% elif response_cancel %}
+
+             <div class="alert alert-warning">
+                 <h4>Oops.. payment was canceled</h4>
+             </div>
+             <div class="well">
+                 <h4>{{ payment.game.title }}</h4>
+                 <h5>Price - {{ payment.game.price }} EUR</h5>
+             </div>
+             <a class="btn btn-primary" href="/game/{{payment.game.id}}">Try again!</a>
+
+         {% elif response_error %}
+
+             <div class="alert alert-danger">
+                 <h4>Error...! The payment service replied with an error</h4>
+             </div>
+             <div class="well">
+                 <h4>{{ payment.game.title }}</h4>
+                 <h5>Price - {{ payment.game.price }} EUR</h5>
+             </div>
+             <a class="btn btn-primary" href="/game/{{payment.game.id}}">Try again!</a>
+
+         {% endif %}
+
+      {% endif %}
   </div>
 </div>
 

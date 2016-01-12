@@ -62,6 +62,7 @@ class PaymentForm(forms.ModelForm):
     sid = forms.CharField(widget=forms.HiddenInput())
     checksum = forms.CharField(widget=forms.HiddenInput())
     amount = forms.CharField(widget=forms.HiddenInput())
+    dev = forms.BooleanField(widget=forms.HiddenInput(), initial=True)
     success_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_SUCCESS_URL)
     cancel_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_CANCEL_URL)
     error_url = forms.CharField(widget=forms.HiddenInput(), initial=settings.PAYMENT_ERROR_URL)
