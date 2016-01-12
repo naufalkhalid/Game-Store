@@ -11,15 +11,21 @@ from hashlib import md5
 
 @login_required
 def add_game(request):
-
+	developer=False
+	gameadded=False
 	user_profile = get_object_or_404(UserProfile, user=request.user)
+	if user_profile.is_developer:
+		developer=True;
 	if request.method== 'POST':
 		developer_form=GameForm(request.POST)
 		if developer_form.is_valid():
-			if user_profile.is_developer:
-				dev = developer_form.save(commit=False)
-				dev.user=user_profile.user
-				dev.save()
+			
+			dev = developer_form.save(commit=False)
+			dev.user=user_profile.user
+			dev.save()
+			
+			gameadded=True
+			
 
 		else:
 			print (developer_form.errors)
@@ -28,7 +34,7 @@ def add_game(request):
 	else:
 		developer_form = GameForm()
     #check if user is a developer or not, then only allow
-	return render(request, 'game_store/add_game.html', {'developer_form': developer_form})
+	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer})
 
 
 def game(request, game_id):
