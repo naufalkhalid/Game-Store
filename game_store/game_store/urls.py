@@ -40,4 +40,5 @@ urlpatterns = [
 
     url(r'^dashboard$', views.dashboard, name='dashboard'),
     url(r'^add_game$', views.add_game, name='add_game'),
+	url(r'^edit_game/(\d+)$', views.edit_game, name='edit_game'),
 ]

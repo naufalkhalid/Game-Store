@@ -37,7 +37,6 @@ class UserProfileForm(forms.ModelForm):
 		model = UserProfile
 		fields = ('is_developer',)
 
-
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=255, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)

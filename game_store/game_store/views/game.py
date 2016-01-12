@@ -9,6 +9,17 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from hashlib import md5
 
+
+
+
+
+@login_required
+def edit_game(request):
+#edit game here
+#check if the game by same developer
+
+
+
 @login_required
 def add_game(request):
 	developer=False
