@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Home - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+<div class="col-md-3">
+   
+	<form action="/add_game" method="post">{% csrf_token %}
+	
+	
+	
+	
+	<H3>Add Game</H3>
+	<!-- Display each form. The as_p method wraps each element in a paragraph
+                 (<p>) element. This ensures each element appears on a new line,
+                 making everything look neater. -->
+            <div class="form-group">
+    <label for="game_title">Game Title</label>
+    <input type="name" class="form-control" id="game_title" maxlength="250" name="title" placeholder="Game Title" value={{game.title}}>{{developer_form.title.errors}}
+  </div>
+  <div class="form-group">
+    <label for="txtLname">Game Link</label>
+    <input type="name" class="form-control" id="game_link" name="href" maxlength="1000" placeholder="Game Href" value={{game.href}}>{{developer_form.href.errors}}
+  </div>
+  <div class="form-group">
+    <label for="game_price">Game Price</label>
+   <input type="number" class="form-control" id="game_price" name="price" min="0" size="4" step="0.01" value={{game.price}}>{{developer_form.price.errors}}
+    
+  </div>
+  <div class="form-group">
+    <label for="game_category">Category</label>
+   <input type="name" class="form-control" id="game_category" name="category" placeholder="Game Category" maxlength="250" value={{game.category}}>{{developer_form.category.errors}}
+    
+  </div>
+  
+	
+
+<div>
+
+  <button type="submit" class="btn btn-default" id="btn_Editgame">Edit Game</button>
+  </div>
+  
+ 
+	
+  
+
+  
+</form>
+</div>
+</div>
+
+{% endblock %}

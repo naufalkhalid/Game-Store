@@ -14,9 +14,20 @@ from hashlib import md5
 
 
 @login_required
-def edit_game(request):
+def edit_game(request,game_id):
+	if request.method == 'GET':
+		game = get_object_or_404(Game, id=game_id)
+		
+		context = {
+		'game': game,
+		}
+	return render(request, 'game_store/edit_game.html', context)
+
+		
+		
 #edit game here
 #check if the game by same developer
+	
 
 
 
