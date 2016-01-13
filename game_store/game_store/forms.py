@@ -4,6 +4,16 @@ from game_store.models import UserProfile, Game, Payment
 from django.contrib.auth import authenticate, login
 from django.conf import settings
 
+class EditGameForm(forms.ModelForm):
+	title = forms.CharField(max_length=250)
+	href = forms.CharField(max_length=1000)
+	category = forms.CharField(max_length=250)
+	price=forms.DecimalField(max_digits=10, decimal_places=2)
+	class Meta:
+		model = Game
+		fields = ('title', 'href', 'price','category',)
+
+
 class GameForm(forms.ModelForm):
 	title = forms.CharField(max_length=250)
 	href = forms.CharField(max_length=1000)

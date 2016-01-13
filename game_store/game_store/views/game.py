@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from game_store.models import UserProfile, Game, PlayerGame, ScoreBoard, Payment
-from game_store.forms import UserForm, UserProfileForm, LoginForm, GameForm, PaymentForm
+from game_store.forms import UserForm, UserProfileForm, LoginForm, GameForm, PaymentForm,EditGameForm
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -15,15 +15,31 @@ from hashlib import md5
 
 @login_required
 def edit_game(request,game_id):
+	
 	if request.method == 'GET':
 		game = get_object_or_404(Game, id=game_id)
 		
 		context = {
 		'game': game,
 		}
-	return render(request, 'game_store/edit_game.html', context)
+		return render(request, 'game_store/edit_game.html', context)
+	elif request.method== 'POST':
+		instance = get_object_or_404(Game, id=game_id)
+		developer_form=EditGameForm(request.POST or None, instance=instance)
+		if developer_form.is_valid():
+			
+			dev = developer_form.save(commit=False)
+			#dev.user=user_profile.user
+			
+			dev.save()
+			
+			
+			
 
-		
+		else:
+			print (developer_form.errors)
+		return render(request, 'game_store/edit_game.html', {'developer_form': developer_form})
+	
 		
 #edit game here
 #check if the game by same developer
