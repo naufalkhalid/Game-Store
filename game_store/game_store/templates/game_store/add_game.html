@@ -4,13 +4,14 @@
 
 {% block content %}
 <div class="row">
-{% if not developer %}
-<H3>You have to be a developer to add a game</H3>
-{% else %}
+
+
+{% if developer %}
+	{%if not gameadded %}
 <div class="col-md-3">
-   {% if not developer %}
-   <H3>Thank you for adding a game</H3>
-   {% endif %}
+   
+   
+   
 	<form action="/add_game" method="post">{% csrf_token %}
 	
 	
@@ -45,8 +46,15 @@
 
   <button type="submit" class="btn btn-default" id="btn_Addgame">Add Game</button>
   </div>
-  
- {% endif %} 
+	{% else %}
+	<h3>Thank you for adding game</h3>
+	
+	<a href="/edit_game/{{gameid}}" class="btn btn-default" id="btn_EditGame">Edit Game</a>
+	<a href="/game/{{gameid}}" class="btn btn-default" id="btn_ViewGame">View Game</a>
+	{% endif %}
+{% else %}
+<h3>You have to be a developer to add a game</h3>	
+{% endif %} 
 
 	
   

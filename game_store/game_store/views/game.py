@@ -15,31 +15,54 @@ from hashlib import md5
 
 @login_required
 def edit_game(request,game_id):
-	
-	if request.method == 'GET':
-		game = get_object_or_404(Game, id=game_id)
-		
-		context = {
-		'game': game,
-		}
-		return render(request, 'game_store/edit_game.html', context)
-	elif request.method== 'POST':
-		instance = get_object_or_404(Game, id=game_id)
-		developer_form=EditGameForm(request.POST or None, instance=instance)
-		if developer_form.is_valid():
-			
-			dev = developer_form.save(commit=False)
-			#dev.user=user_profile.user
-			
-			dev.save()
-			
-			
-			
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        instance = get_object_or_404(Game, id=game_id)
+        
 
-		else:
-			print (developer_form.errors)
-		return render(request, 'game_store/edit_game.html', {'developer_form': developer_form})
-	
+        if user_profile.is_developer and instance.user==user_profile.user:
+                developer=True
+                
+                if request.method == 'GET':
+                        
+                        #developer_form = EditGameForm()
+                        context = {
+                        'game': instance,
+                        'developer':developer
+                        
+                        }
+                        
+                elif request.method== 'POST':
+                        
+                        developer_form=EditGameForm(request.POST or None, instance=instance)
+                        if developer_form.is_valid():
+                                
+                                dev = developer_form.save(commit=False)
+                                #dev.user=user_profile.user
+                                
+                                dev.save()
+                                
+                                context = {
+                                'game': instance,
+                                'developer':developer
+                                }
+                                
+                                
+
+                        else:
+                                print (developer_form.errors)
+                
+                  
+
+        else:
+                developer=False
+                context = {
+                        
+                        'developer':developer
+                        
+                        }
+                
+                
+        return render(request, 'game_store/edit_game.html',context)	
 		
 #edit game here
 #check if the game by same developer
@@ -60,8 +83,9 @@ def add_game(request):
 			
 			dev = developer_form.save(commit=False)
 			dev.user=user_profile.user
-			dev.save()
 			
+			dev.save()
+			gameid=dev.id;
 			gameadded=True
 			
 
@@ -71,8 +95,9 @@ def add_game(request):
     #insert code to add new game by a developer.
 	else:
 		developer_form = GameForm()
+		gameid=""
     #check if user is a developer or not, then only allow
-	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer,'gameadded':gameadded})
+	return render(request, 'game_store/add_game.html', {'developer_form': developer_form,'developer':developer,'gameadded':gameadded,'gameid':gameid})
 
 
 def game(request, game_id):

@@ -5,10 +5,12 @@
 {% block content %}
 
 <div class="row">
-
+{% if not developer %}
+<H3>You cannot edit this game</H3>
+{% else %}
 <div class="col-md-3">
    
-	<form action="/edit_game/2" method="post">{% csrf_token %}
+	<form action="/edit_game/{{game.id}}" method="post">{% csrf_token %}
 	
 	
 	
@@ -49,6 +51,7 @@
 
   
 </form>
+{% endif %}
 </div>
 </div>
 
