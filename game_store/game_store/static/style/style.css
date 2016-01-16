@@ -21,7 +21,21 @@ body {
 }
 
 .form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.game-block {
+    margin-top: 15px;
+}
+
+.developer-dashboard {
+    border-bottom: 1px dotted #8c8b8b;
+    padding-bottom: 10px;
+}
+
+.dashboard-title {
+    margin-top: 25px;
+    margin-bottom: 15px;
 }
