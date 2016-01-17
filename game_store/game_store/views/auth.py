@@ -22,8 +22,9 @@ def sign_up(request):
 			user.set_password(user.password)
 
 			user.save();
+			registered=True;
 			userprofile.save();
-			registered=True
+			
 
 		else:
 			print (user_form.errors)
