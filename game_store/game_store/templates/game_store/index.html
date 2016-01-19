@@ -3,9 +3,23 @@
 {% block title %}Home - {{ block.super }}{% endblock %}
 
 {% block content %}
-
-<p>
-	Hello World
-<p>
-
+    <h4 class="dashboard-title">Games Available</h4>
+    <div class="row">
+    {% for game in games %}
+        <div class="col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <p class="panel-title text-center">{{game.title}}</p>
+                </div>
+                <div class="panel-body">
+                    <p class="text-center"><a class="btn btn-success" href="{% url 'game' game.id %}">{{game.price}} &euro;</a></p>
+                </div>
+            </div>
+        </div>
+    {% if forloop.counter|divisibleby:4 %}
+    </div>
+    <div class="row">
+    {% endif %}
+    {% endfor %}
+    </div>
 {% endblock %}

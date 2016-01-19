@@ -39,3 +39,9 @@ body {
     margin-top: 25px;
     margin-bottom: 15px;
 }
+
+.panel-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

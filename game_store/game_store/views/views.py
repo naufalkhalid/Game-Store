@@ -3,7 +3,8 @@ from game_store.models import UserProfile, Game, PlayerGame
 from django.contrib.auth.decorators import login_required
 
 def home(request):
-    return render(request, "game_store/index.html")
+    games = Game.objects.all()
+    return render(request, "game_store/index.html", {'games': games})
 
 @login_required
 def dashboard(request):
