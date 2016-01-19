@@ -1,8 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
-from game_store.models import UserProfile, Game, Payment
+from game_store.models import UserProfile, Game, Payment,User
 from django.contrib.auth import authenticate, login
 from django.conf import settings
+from django.http import HttpResponse
 
 class EditGameForm(forms.ModelForm):
 	title = forms.CharField(max_length=250)
@@ -33,7 +34,14 @@ class UserForm(forms.ModelForm):
 	def clean(self):
 		password=self.cleaned_data.get('password')
 		confirmPassword=self.cleaned_data.get('confirmPassword')
-		if(password!=confirmPassword):
+		
+		
+		user=User.objects.filter(username=self.cleaned_data['username']).count()
+		if user > 0:
+			msg="User Already Exists"
+			self.add_error("username",msg)	
+		
+		if password!=confirmPassword:
 			msg="Password Donot Match"
 			self.add_error("password",msg)
 			self.add_error("confirmPassword",msg)
@@ -42,7 +50,7 @@ class UserForm(forms.ModelForm):
 		fields = ('username', 'email', 'password','first_name','last_name')
 
 class UserProfileForm(forms.ModelForm):
-	is_developer = forms.BooleanField()
+	
 	class Meta:
 		model = UserProfile
 		fields = ('is_developer',)
