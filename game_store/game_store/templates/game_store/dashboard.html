@@ -27,17 +27,21 @@ Refer to models.py for models and field information
     <h4 class="dashboard-title">Games Developed</h4>
     <div class="row">
     {% for dev_game in developer_games %}
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{dev_game.title}}</h3>
+                    <p class="panel-title text-center">{{dev_game.title}}</p>
                 </div>
                 <div class="panel-body">
-                    <p>{{dev_game.price}} EUR</p>
+                    <p>Price set:{{dev_game.price}} EUR</p>
+                    <p>
+                        <a class="btn btn-xs btn-default" href="{% url 'edit_game' dev_game.id %}">Edit</a>
+                        <a class="btn btn-xs btn-default" href="{% url 'game' dev_game.id %}">View</a>
+                    </p>
                 </div>
             </div>
         </div>
-    {% if forloop.counter|divisibleby:3 %}
+    {% if forloop.counter|divisibleby:4 %}
     </div>
     <div class="row">
     {% endif %}
@@ -64,6 +68,9 @@ Refer to models.py for models and field information
                 <div class="panel-body">
                     <p>Purchased on {{player_game.purchased_on}}</p>
                     <p>for {{player_game.purchased_price}} EUR</p>
+                    <p>
+                        <a class="btn btn-xs btn-default" href="{% url 'game' player_game.id %}">Play</a>
+                    </p>
                 </div>
             </div>
         </div>
