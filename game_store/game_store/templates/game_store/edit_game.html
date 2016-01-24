@@ -1,6 +1,12 @@
 {% extends "base.html" %}
-
+{% load staticfiles %}
 {% block title %}Home - {{ block.super }}{% endblock %}
+
+{% block header %}
+    {{ block.super }}
+    
+    <script type="text/javascript" src="{% static 'script/editgame.js' %}"></script>
+{% endblock %}
 
 {% block content %}
 
@@ -15,7 +21,7 @@
 	
 	
 	
-	<H3>Add Game</H3>
+	<H3>Edit Game</H3>
 	<!-- Display each form. The as_p method wraps each element in a paragraph
                  (<p>) element. This ensures each element appears on a new line,
                  making everything look neater. -->
@@ -37,12 +43,32 @@
    <input type="name" class="form-control" id="game_category" name="category" placeholder="Game Category" maxlength="250" value={{game.category}}>{{developer_form.category.errors}}
     
   </div>
-  
+  <div class="modal fade" id="dialog-del-message-Model" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+		
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p>Do YOU want to Delete this record?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnSRDelNo" class="btn red" data-dismiss="modal">No</button>
+                <button type="submit" id="btnSRDelYes" name="deletegame" class="btn green" data-dismiss="modal" data-game-id="{{ game.id }}">Yes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 	
 
 <div>
 
-  <button type="submit" class="btn btn-default" id="btn_Editgame">Edit Game</button>
+  <button type="submit" name="edit_game" class="btn btn-default" id="btn_Editgame">Edit Game</button>
+  <button type="button" name="delete_game" class="btn btn-default" id="btn_Delgame">Delete Game</button>
   </div>
   
  

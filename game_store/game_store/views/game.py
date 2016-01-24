@@ -22,34 +22,37 @@ def edit_game(request,game_id):
         if user_profile.is_developer and instance.user==user_profile.user:
                 developer=True
                 
-                if request.method == 'GET':
-                        
+        if request.method == 'GET':
+            if (request.GET.get('game', False)):
+                Game.objects.filter(id=game_id).delete()
+                return HttpResponse("The record has been successfully deleted")
+            else:    
                         #developer_form = EditGameForm()
-                        context = {
-                        'game': instance,
-                        'developer':developer
+                context = {
+                    'game': instance,
+                    'developer':developer
                         
-                        }
-                        
-                elif request.method== 'POST':
-                        
-                        developer_form=EditGameForm(request.POST or None, instance=instance)
-                        if developer_form.is_valid():
-                                
-                                dev = developer_form.save(commit=False)
-                                #dev.user=user_profile.user
-                                
-                                dev.save()
-                                
-                                context = {
-                                'game': instance,
-                                'developer':developer
                                 }
+                        
+        elif request.method== 'POST':
+                        
+            developer_form=EditGameForm(request.POST or None, instance=instance)
+            if developer_form.is_valid():
+                                
+                dev = developer_form.save(commit=False)
+                    #dev.user=user_profile.user
+                                
+                dev.save()
+                                
+                context = {
+                    'game': instance,
+                    'developer':developer
+                          }
                                 
                                 
 
-                        else:
-                                print (developer_form.errors)
+            else:
+                print (developer_form.errors)
                 
                   
 
