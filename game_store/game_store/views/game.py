@@ -25,7 +25,7 @@ def edit_game(request,game_id):
         if request.method == 'GET':
             if (request.GET.get('game', False)):
                 Game.objects.filter(id=game_id).delete()
-                return HttpResponse("The record has been successfully deleted")
+                return HttpResponse("The game has been successfully deleted")
             else:    
                         #developer_form = EditGameForm()
                 context = {
