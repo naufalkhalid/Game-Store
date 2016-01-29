@@ -136,3 +136,5 @@ PAYMENT_SECRET_KEY = '477af329b0e71a121e93abd28e384fce'
 PAYMENT_SUCCESS_URL = BASE_URL + '/payment/success'
 PAYMENT_ERROR_URL = BASE_URL + '/payment/error'
 PAYMENT_CANCEL_URL = BASE_URL + '/payment/cancel'
+
+SALT = 'game-store-wsd'
