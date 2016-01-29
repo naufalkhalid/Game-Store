@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
-    is_developer = models.BooleanField()
+    is_developer = models.BooleanField(default=False)
+    activation_key = models.CharField(max_length=32) #MD5 Hash of email+salt
     def __str__(self):
         return "User: " + self.user.username
 
