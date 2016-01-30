@@ -76,8 +76,13 @@ def sign_in(request):
     login_form = LoginForm(request.POST or None)
     if (request.method == 'POST'):
         if (login_form.is_valid()): #this will also authenticate the user
-            login_form.login(request)
-            return HttpResponseRedirect(next_page)
+            user = login_form.login(request)
+            
+            if user.is_active:
+                return HttpResponseRedirect(next_page)
+            else:
+                logout(request)
+                return HttpResponseRedirect('/activate?user=' + str(user.id))
     return render(request, "game_store/signin.html", {'form': login_form, 'next_page': next_page})
 
 

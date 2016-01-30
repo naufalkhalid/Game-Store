@@ -64,14 +64,13 @@ class LoginForm(forms.Form):
         user = authenticate(username=username, password=password)
         if (not user):
             raise forms.ValidationError("Incorrect Username or Password")
-        elif (not user.is_active):
-            raise forms.ValidationError("User is inactive")
         return self.cleaned_data
     def login(self, request):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         login(request, user)
+        return user
 
 
 class PaymentForm(forms.ModelForm):
