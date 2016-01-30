@@ -11,8 +11,10 @@ from hashlib import md5
 
 def activate(request):
     if request.GET.get('user') is not None and request.GET.get('activation_key') is not None:
+        #get the user and user_profile if the user id and key is provided
         user = get_object_or_404(User, id=request.GET.get('user'))
-        user_profile =  get_object_or_404(User, user=user)
+        user_profile =  get_object_or_404(UserProfile, user=user)
+        #match the activation key with the database
         if (user_profile.activation_key == request.GET.get('activation_key')):
             context = {'activated': True, 'user': user}
             user.is_activated = True
@@ -25,7 +27,7 @@ def activate(request):
     else:
         context = {'error': True, 'text': "Bad request"}
     
-    render(request, "game_store/activate.html", context)
+    return render(request, "game_store/activate.html", context)
 
 
 def sign_up(request):
@@ -44,10 +46,10 @@ def sign_up(request):
 			
             #creating an activation key. MD5(Email + Salt).
 			md5strinput = user.email + settings.SALT
-			user.activation_key = md5(md5strinput.encode("ascii")).hexdigest();
+			userprofile.activation_key = md5(md5strinput.encode("ascii")).hexdigest();
 		    
 			user.save()
-			print("Activation Url - " + settings.BASE_URL + "/activate?user=" + user.id + "&activation_key=" + user.activation_key)
+			print("Activation Url - " + settings.BASE_URL + "/activate?user=" + str(user.id) + "&activation_key=" + userprofile.activation_key)
 			registered=True
 			userprofile.save()
 			
