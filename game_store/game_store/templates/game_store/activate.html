@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Activate User - {{ block.super }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <h3 class="text-center"> User Activation </h3>
+        {% if error %}
+            <div class="alert alert-danger">
+                 <h4>Error! {{ text }}</h4>
+             </div>
+        {% else %}
+        
+            {% if activated %}
+                <div class="alert alert-success">
+                    <h4>Activation successful!</h4>
+                    <a class="btn btn-primary" href="/signin">Sign in?</a>
+                </div>
+            {% else %}
+            
+                <form class="form" action="/activate" method="get">
+                    <input type="hidden" name="user" value="{{ user.id }}" />
+                    Activation key for {{ user.username }}: <input type="text" name="activation_key" />
+                    <button class="btn btn-success" type="submit">Proceed...</button>
+                </form>    
+            
+            {% endif %}
+        
+        {% endif %}    
+    </div>
+</div>
+
+{% endblock %}
