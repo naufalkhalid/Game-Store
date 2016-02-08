@@ -18,6 +18,7 @@ def edit_game(request,game_id):
         user_profile = get_object_or_404(UserProfile, user=request.user)
         instance = get_object_or_404(Game, id=game_id)
         
+        developer=False
 
         if user_profile.is_developer and instance.user==user_profile.user:
                 developer=True
